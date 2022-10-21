@@ -1,0 +1,50 @@
+.task-container {
+    min-height: 200px;
+    max-width: 90%;
+    border-bottom: 1px solid #31493d;
+    margin: 50px;
+
+    &__title {
+        color: #31493d;
+        font-size: 1.5em;
+
+        &_margin {
+            margin: 20px 0px;
+        }
+    }
+
+    &__margin {
+        margin: 5px 5px;
+    }
+
+    &__output {
+        display: flex;
+        flex-direction: row;
+        padding: 5px 0px;
+    }
+
+    &__input{
+        height: 25px;
+        width: 200px;
+        font-size: 1em;
+        background-color: #d0d0d0;
+        color: #000000;
+        border-radius: 3px;
+        padding-left: 5px;
+    }
+
+    &__button{
+        height: 25px;
+        width: 100px;
+        font-size: 1em;
+        background-color: #d0d0d0;
+        color: #363636;
+        border-radius: 3px;
+        padding-left: 5px;
+
+        &:hover{
+            box-shadow: 2px 2px 3px #363636;
+            transition: all 0.1s;
+        }
+    }
+}
