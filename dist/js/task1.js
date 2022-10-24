@@ -142,3 +142,60 @@ function formatText(text, maxStringSize, maxStringCount, selectedChoice) {
   }
   return formattedText;
 }
+var task4Button = document.getElementById('task4_button');
+var task4InputNumber1 = document.getElementById('task4_input-first');
+var task4InputNumber2 = document.getElementById('task4_input-second');
+var task4Select = document.getElementById('selectOperation');
+task4Button.addEventListener("click", function () {
+  var number1 = task4InputNumber1.value;
+  var number2 = task4InputNumber2.value;
+  var select = task4Select.selectedIndex;
+  switch (select) {
+    case 0:
+      document.querySelector("#task4_operationOutput").innerHTML = objOperation.add(number1, number2);
+      break;
+    case 1:
+      document.querySelector("#task4_operationOutput").innerHTML = objOperation.subtract(number1, number2);
+      break;
+    case 2:
+      document.querySelector("#task4_operationOutput").innerHTML = objOperation.multiply(number1, number2);
+      break;
+    case 3:
+      document.querySelector("#task4_operationOutput").innerHTML = objOperation.divide(number1, number2);
+      break;
+  }
+});
+var objOperation = {
+  add: add,
+  subtract: subtract,
+  multiply: multiply,
+  divide: divide
+};
+objOperation.add = add;
+objOperation.subtract = subtract;
+objOperation.multiply = multiply;
+objOperation.divide = divide;
+function add(firstNum, secNum) {
+  if (isNaN(firstNum) || isNaN(secNum)) {
+    return 'Not a Number!';
+  }
+  return Number(firstNum) + Number(secNum);
+}
+function subtract(firstNum, secNum) {
+  if (isNaN(firstNum) || isNaN(secNum)) {
+    return 'Not a Number!';
+  }
+  return firstNum - secNum;
+}
+function multiply(firstNum, secNum) {
+  if (isNaN(firstNum) || isNaN(secNum)) {
+    return 'Not a Number!';
+  }
+  return firstNum * secNum;
+}
+function divide(firstNum, secNum) {
+  if (isNaN(firstNum) || isNaN(secNum)) {
+    return 'Not a Number!';
+  }
+  return firstNum / secNum;
+}
