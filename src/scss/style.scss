@@ -3,6 +3,7 @@
     max-width: 90%;
     border-bottom: 1px solid #31493d;
     margin: 50px;
+    padding-bottom: 50px;
 
     &__title {
         color: #31493d;
@@ -20,7 +21,7 @@
     &__output {
         display: flex;
         flex-direction: row;
-        padding: 5px 0px;
+        padding: 5px 10px;
     }
 
     &__input{
@@ -30,7 +31,23 @@
         background-color: #d0d0d0;
         color: #000000;
         border-radius: 3px;
-        padding-left: 5px;
+        padding: 5px;
+        
+
+        &_little-size{
+            height: 25px;
+            width: 70px;
+            background-color: #d0d0d0;
+            color: #000000;
+        }
+
+        &_big-size{
+            height: 150px;
+            width: 300px;
+            font-size: 1em;
+            background-color: #d0d0d0;
+            color: #000000;
+        }
     }
 
     &__button{
@@ -40,11 +57,18 @@
         background-color: #d0d0d0;
         color: #363636;
         border-radius: 3px;
-        padding-left: 5px;
 
         &:hover{
             box-shadow: 2px 2px 3px #363636;
             transition: all 0.1s;
         }
+    }
+
+    &__select{
+        height: 25px;
+        width: 100px;
+        font-size: 1em;
+        background-color: #d0d0d0;
+        color: #363636;
     }
 }
