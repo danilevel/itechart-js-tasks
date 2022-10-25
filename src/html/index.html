@@ -17,7 +17,6 @@
         <div class="task-container__margin">
             <input type="text" id="task1_input" class="task-container__input" required>
             <button type="button" id="task1_button" class="task-container__button">calculate</button>
-            <script src="../js/task1.js"></script>
         </div>
         <div>
             <div class="task-container__output">
@@ -41,7 +40,6 @@
         <div class="task-container__margin">
             <input type="text" id="task2_input" class="task-container__input" required>
             <button type="button" id="task2_button" class="task-container__button">calculate</button>
-            <script src="../js/task1.js"></script>
         </div>
         <div class="task-container__output">
             <p>largest increasing sequence:</p>
@@ -83,7 +81,6 @@
             <div>
                 <textarea type="text" id="task3_output" class="task-container__input_big-size" readonly></textarea>
             </div>
-            <script src="../js/task1.js"></script>
         </div>
     </div>
 
@@ -105,13 +102,55 @@
         </div>
         <div class="task-container__margin">
             <button type="button" id="task4_button" class="task-container__button">calculate</button>
-            <script src="../js/task1.js"></script>
         </div>
         <div class="task-container__output">
             <p>Result:</p>
             <output id="task4_operationOutput"></output>
         </div>
     </div>
-</body>
 
+    <div class="task-container">
+        <h1 class="task-container__title task-container__title_margin">Task_5 (Sorter)</h1>
+        <label>Enter an int array (through a space):</label>
+        <div class="task-container__margin">
+            <input type="text" id="task5_input" class="task-container__input" required>
+            <button type="button" id="task5_button" class="task-container__button">calculate</button>
+        </div>
+        <div class="task-container__output">
+            <select id="selectAlgorithm">
+                <option value="Bubble-sort">Bubble sort</option>
+                <option value="Quick-sort">Quick sort</option>
+                <option value="Insertion-sort">Insertion sort</option>
+            </select>
+            <p> - sorting algorithms</p>
+        </div>
+        <label>Sorted array:</label>
+        <div class="task-container__margin">
+            <output type="text" id="task5_output" readonly>
+        </div>
+        
+    </div>
+
+    <div class="task-container">
+        <h1 class="task-container__title task-container__title_margin">Task_6 (Converter)</h1>
+        <label>enter a number in one of the number systems:</label>
+        <div class="task-container__margin">
+            <input type="text" id="task6_input" class="task-container__input" required>
+            <button type="button" id="task6_button" class="task-container__button">convert</button>
+        </div>
+        <div class="task-container__output">
+            <select id="selectFromTo">
+                <option value="Binary">from binary to decimal</option>
+                <option value="Decimal">from decimal to binary</option>
+            </select>
+            <p> conversion options</p>
+        </div>
+        <label>Result:</label>
+        <div class="task-container__margin">
+            <output type="text" id="task6_output" readonly>
+        </div>
+        
+    </div>
+    <script src="../js/task1.js"></script>
+</body>
 </html>

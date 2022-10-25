@@ -181,8 +181,7 @@ task4Button.addEventListener("click", () => {
     let number2 = task4InputNumber2.value;
     let select = task4Select.selectedIndex;
 
-    switch(select)
-    {
+    switch (select) {
         case 0:
             document.querySelector("#task4_operationOutput").innerHTML = objOperation.add(number1, number2);
             break;
@@ -232,4 +231,128 @@ function divide(firstNum, secNum) {
         return 'Not a Number!';
     }
     return firstNum / secNum;
+}
+
+const task5Button = document.getElementById('task5_button');
+const task5Input = document.getElementById('task5_input');
+const task5Select = document.getElementById('selectAlgorithm');
+
+task5Button.addEventListener("click", () => {
+    var str = task5Input.value;
+    let select = task5Select.selectedIndex;
+    const array = convertToArray(str);
+    console.log(array);
+
+    switch (select) {
+        case 0:
+            document.querySelector("#task5_output").innerHTML = `[${objSort.bubbleSort(array).join(", ")}]`;
+            break;
+        case 1:
+            document.querySelector("#task5_output").innerHTML = `[${objSort.quickSort(array).join(", ")}]`;
+            break;
+        case 2:
+            document.querySelector("#task5_output").innerHTML = `[${objSort.insertionSort(array).join(", ")}]`;
+            break;
+    }
+})
+
+let objSort = { bubbleSort, quickSort, insertionSort };
+
+objSort.bubbleSort = bubbleSort;
+objSort.quickSort = quickSort;
+objSort.insertionSort = insertionSort;
+
+function bubbleSort(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+    for (let j = array.length - 1; j > 0; j--) {
+        for (let i = 0; i < j; i++) {
+            if (array[i] > array[i + 1]) {
+                let temp = array[i];
+                array[i] = array[i + 1];
+                array[i + 1] = temp;
+            }
+        }
+    }
+
+    return array;
+}
+
+function quickSort(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+    var pivot = array[0];
+
+    var left = [];
+    var right = [];
+
+    for (var i = 1; i < array.length; i++) {
+        array[i] < pivot ? left.push(array[i]) : right.push(array[i]);
+    }
+
+    return quickSort(left).concat(pivot, quickSort(right));
+};
+
+
+function insertionSort(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+    for (let i = 1, l = array.length; i < l; i++) {
+        const current = array[i];
+        let j = i;
+        while (j > 0 && array[j - 1] > current) {
+            array[j] = array[j - 1];
+            j--;
+        }
+        array[j] = current;
+    }
+    return array;
+}
+
+
+const task6Button = document.getElementById('task6_button');
+const task6Input = document.getElementById('task6_input');
+const task6Select = document.getElementById('selectFromTo');
+
+task6Button.addEventListener("click", () => {
+    var str = task6Input.value;
+    let select = task6Select.selectedIndex;
+
+    switch (select) {
+        case 0:
+            document.querySelector("#task6_output").innerHTML = objConvert.convertFromBinaryToDec(str);
+            break;
+        case 1:
+            document.querySelector("#task6_output").innerHTML = objConvert.convertFromDecimalToBin(str);
+            break;
+    }
+})
+
+let objConvert = { convertFromBinaryToDec, convertFromDecimalToBin };
+
+objConvert.convertFromBinaryToDec = convertFromBinaryToDec;
+objConvert.convertFromDecimalToBin = convertFromDecimalToBin;
+
+function convertFromBinaryToDec(str) {
+    str.replace(/ /g,'');
+    return parseInt((str + '').replace(/[^01]/gi, ''), 2);
+}
+
+function convertFromDecimalToBin(number) {
+    const count = 4;
+    let num = number;
+    let binary = (num % 2).toString();
+    for (let i = 1; num > 1; i++) {
+        if (i == count) {
+            binary += ' ';
+            i = 0;
+        }
+        num = parseInt(num / 2);
+        binary += (num % 2);
+    }
+
+    return binary.split('').reverse().join('');
 }

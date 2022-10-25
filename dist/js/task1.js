@@ -199,3 +199,113 @@ function divide(firstNum, secNum) {
   }
   return firstNum / secNum;
 }
+var task5Button = document.getElementById('task5_button');
+var task5Input = document.getElementById('task5_input');
+var task5Select = document.getElementById('selectAlgorithm');
+task5Button.addEventListener("click", function () {
+  var str = task5Input.value;
+  var select = task5Select.selectedIndex;
+  var array = convertToArray(str);
+  console.log(array);
+  switch (select) {
+    case 0:
+      document.querySelector("#task5_output").innerHTML = "[".concat(objSort.bubbleSort(array).join(", "), "]");
+      break;
+    case 1:
+      document.querySelector("#task5_output").innerHTML = "[".concat(objSort.quickSort(array).join(", "), "]");
+      break;
+    case 2:
+      document.querySelector("#task5_output").innerHTML = "[".concat(objSort.insertionSort(array).join(", "), "]");
+      break;
+  }
+});
+var objSort = {
+  bubbleSort: bubbleSort,
+  quickSort: quickSort,
+  insertionSort: insertionSort
+};
+objSort.bubbleSort = bubbleSort;
+objSort.quickSort = quickSort;
+objSort.insertionSort = insertionSort;
+function bubbleSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+  for (var j = array.length - 1; j > 0; j--) {
+    for (var i = 0; i < j; i++) {
+      if (array[i] > array[i + 1]) {
+        var temp = array[i];
+        array[i] = array[i + 1];
+        array[i + 1] = temp;
+      }
+    }
+  }
+  return array;
+}
+function quickSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+  var pivot = array[0];
+  var left = [];
+  var right = [];
+  for (var i = 1; i < array.length; i++) {
+    array[i] < pivot ? left.push(array[i]) : right.push(array[i]);
+  }
+  return quickSort(left).concat(pivot, quickSort(right));
+}
+;
+function insertionSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+  for (var i = 1, l = array.length; i < l; i++) {
+    var current = array[i];
+    var j = i;
+    while (j > 0 && array[j - 1] > current) {
+      array[j] = array[j - 1];
+      j--;
+    }
+    array[j] = current;
+  }
+  return array;
+}
+var task6Button = document.getElementById('task6_button');
+var task6Input = document.getElementById('task6_input');
+var task6Select = document.getElementById('selectFromTo');
+task6Button.addEventListener("click", function () {
+  var str = task6Input.value;
+  var select = task6Select.selectedIndex;
+  switch (select) {
+    case 0:
+      document.querySelector("#task6_output").innerHTML = objConvert.convertFromBinaryToDec(str);
+      break;
+    case 1:
+      document.querySelector("#task6_output").innerHTML = objConvert.convertFromDecimalToBin(str);
+      break;
+  }
+});
+var objConvert = {
+  convertFromBinaryToDec: convertFromBinaryToDec,
+  convertFromDecimalToBin: convertFromDecimalToBin
+};
+objConvert.convertFromBinaryToDec = convertFromBinaryToDec;
+objConvert.convertFromDecimalToBin = convertFromDecimalToBin;
+function convertFromBinaryToDec(str) {
+  str.replace(/ /g, '');
+  return parseInt((str + '').replace(/[^01]/gi, ''), 2);
+}
+function convertFromDecimalToBin(number) {
+  var count = 4;
+  var num = number;
+  var binary = (num % 2).toString();
+  for (var i = 1; num > 1; i++) {
+    if (i == count) {
+      binary += ' ';
+      i = 0;
+    }
+    num = parseInt(num / 2);
+    binary += num % 2;
+  }
+  return binary.split('').reverse().join('');
+}
