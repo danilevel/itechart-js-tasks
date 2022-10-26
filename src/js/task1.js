@@ -177,38 +177,35 @@ const task4InputNumber2 = document.getElementById('task4_input-second');
 const task4Select = document.getElementById('selectOperation');
 
 task4Button.addEventListener("click", () => {
-    let number1 = task4InputNumber1.value;
-    let number2 = task4InputNumber2.value;
-    let select = task4Select.selectedIndex;
+    let number1 = Number(task4InputNumber1.value);
+    let number2 = Number(task4InputNumber2.value);
+
+    let select = Number(task4Select.selectedIndex);
 
     switch (select) {
         case 0:
-            document.querySelector("#task4_operationOutput").innerHTML = objOperation.add(number1, number2);
+            const mSum = memoizeObj.memoizeSum;
+            document.querySelector("#task4_operationOutput").innerHTML = mSum(number1, number2);
             break;
         case 1:
-            document.querySelector("#task4_operationOutput").innerHTML = objOperation.subtract(number1, number2);
+            const mSubtract = memoizeObj.memoizeSubtract;
+            document.querySelector("#task4_operationOutput").innerHTML = mSubtract(number1, number2);
             break;
         case 2:
-            document.querySelector("#task4_operationOutput").innerHTML = objOperation.multiply(number1, number2);
+            const mMultiply = memoizeObj.memoizeMultiply;
+            document.querySelector("#task4_operationOutput").innerHTML = mMultiply(number1, number2);
             break;
         case 3:
-            document.querySelector("#task4_operationOutput").innerHTML = objOperation.divide(number1, number2);
+            const mDivide = memoizeObj.memoizeDivide;
+            document.querySelector("#task4_operationOutput").innerHTML = mDivide(number1, number2);
             break;
     }
 })
-
-let objOperation = { add, subtract, multiply, divide };
-
-objOperation.add = add;
-objOperation.subtract = subtract;
-objOperation.multiply = multiply;
-objOperation.divide = divide;
 
 function add(firstNum, secNum) {
     if (isNaN(firstNum) || isNaN(secNum)) {
         return 'Not a Number!';
     }
-
     return Number(firstNum) + Number(secNum);
 }
 
@@ -232,6 +229,61 @@ function divide(firstNum, secNum) {
     }
     return firstNum / secNum;
 }
+
+function isEqual(object1, object2) {
+    const props1 = Object.getOwnPropertyNames(object1);
+    const props2 = Object.getOwnPropertyNames(object2);
+
+    if (props1.length !== props2.length) {
+        return false;
+    }
+
+    for (let i = 0; i < props1.length; i += 1) {
+        const prop = props1[i];
+        const bothAreObjects = typeof(object1[prop]) === 'object' && typeof(object2[prop]) === 'object';
+
+        if ((!bothAreObjects && (object1[prop] !== object2[prop]))
+        || (bothAreObjects && !isEqual(object1[prop], object2[prop]))) {
+        return false;
+        }
+    }
+
+    return true;
+}
+
+const memoize = (fn) => {
+    let prevProps;
+    let prevResult;
+    return (...props) => {
+        if (prevResult && prevProps && isEqual(prevProps, props)) {
+            console.log("From cache");
+            return prevResult;
+        }
+
+        console.log("In cache");
+        prevProps = props;
+        prevResult = fn(...props);
+        return prevResult;
+    };
+
+    // return (...args) => {
+    //     const keyCache = JSON.stringify(args);
+    //     console.log(fn.values[keyCache]);
+    //     if (!fn.values[keyCache]) {
+    //         console.log('in cache');
+    //         fn.values[keyCache] = fn(...args);
+    //     }
+
+    //     console.log(fn.values[keyCache]);
+    //     return fn.values[keyCache];
+    // };
+}
+
+let memoizeObj = { memoizeSum: null, memoizeSubtract: null, memoizeMultiply: null, memoizeDivide: null};
+memoizeObj.memoizeSum = memoize(add);
+memoizeObj.memoizeSubtract = memoize(subtract);
+memoizeObj.memoizeMultiply = memoize(multiply);
+memoizeObj.memoizeDivide = memoize(divide);
 
 const task5Button = document.getElementById('task5_button');
 const task5Input = document.getElementById('task5_input');
@@ -337,7 +389,7 @@ objConvert.convertFromBinaryToDec = convertFromBinaryToDec;
 objConvert.convertFromDecimalToBin = convertFromDecimalToBin;
 
 function convertFromBinaryToDec(str) {
-    str.replace(/ /g,'');
+    str.replace(/ /g, '');
     return parseInt((str + '').replace(/[^01]/gi, ''), 2);
 }
 

@@ -1,5 +1,6 @@
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 var task1Button = document.getElementById('task1_button');
 var task1Input = document.getElementById('task1_input');
 task1Button.addEventListener("click", function () {
@@ -147,34 +148,28 @@ var task4InputNumber1 = document.getElementById('task4_input-first');
 var task4InputNumber2 = document.getElementById('task4_input-second');
 var task4Select = document.getElementById('selectOperation');
 task4Button.addEventListener("click", function () {
-  var number1 = task4InputNumber1.value;
-  var number2 = task4InputNumber2.value;
-  var select = task4Select.selectedIndex;
+  var number1 = Number(task4InputNumber1.value);
+  var number2 = Number(task4InputNumber2.value);
+  var select = Number(task4Select.selectedIndex);
   switch (select) {
     case 0:
-      document.querySelector("#task4_operationOutput").innerHTML = objOperation.add(number1, number2);
+      var mSum = memoizeObj.memoizeSum;
+      document.querySelector("#task4_operationOutput").innerHTML = mSum(number1, number2);
       break;
     case 1:
-      document.querySelector("#task4_operationOutput").innerHTML = objOperation.subtract(number1, number2);
+      var mSubtract = memoizeObj.memoizeSubtract;
+      document.querySelector("#task4_operationOutput").innerHTML = mSubtract(number1, number2);
       break;
     case 2:
-      document.querySelector("#task4_operationOutput").innerHTML = objOperation.multiply(number1, number2);
+      var mMultiply = memoizeObj.memoizeMultiply;
+      document.querySelector("#task4_operationOutput").innerHTML = mMultiply(number1, number2);
       break;
     case 3:
-      document.querySelector("#task4_operationOutput").innerHTML = objOperation.divide(number1, number2);
+      var mDivide = memoizeObj.memoizeDivide;
+      document.querySelector("#task4_operationOutput").innerHTML = mDivide(number1, number2);
       break;
   }
 });
-var objOperation = {
-  add: add,
-  subtract: subtract,
-  multiply: multiply,
-  divide: divide
-};
-objOperation.add = add;
-objOperation.subtract = subtract;
-objOperation.multiply = multiply;
-objOperation.divide = divide;
 function add(firstNum, secNum) {
   if (isNaN(firstNum) || isNaN(secNum)) {
     return 'Not a Number!';
@@ -199,6 +194,61 @@ function divide(firstNum, secNum) {
   }
   return firstNum / secNum;
 }
+function isEqual(object1, object2) {
+  var props1 = Object.getOwnPropertyNames(object1);
+  var props2 = Object.getOwnPropertyNames(object2);
+  if (props1.length !== props2.length) {
+    return false;
+  }
+  for (var i = 0; i < props1.length; i += 1) {
+    var prop = props1[i];
+    var bothAreObjects = _typeof(object1[prop]) === 'object' && _typeof(object2[prop]) === 'object';
+    if (!bothAreObjects && object1[prop] !== object2[prop] || bothAreObjects && !isEqual(object1[prop], object2[prop])) {
+      return false;
+    }
+  }
+  return true;
+}
+var memoize = function memoize(fn) {
+  var prevProps;
+  var prevResult;
+  return function () {
+    for (var _len = arguments.length, props = new Array(_len), _key = 0; _key < _len; _key++) {
+      props[_key] = arguments[_key];
+    }
+    if (prevResult && prevProps && isEqual(prevProps, props)) {
+      console.log("From cache");
+      return prevResult;
+    }
+    console.log("In cache");
+    prevProps = props;
+    prevResult = fn.apply(void 0, props);
+    return prevResult;
+  };
+
+  // return (...args) => {
+  //     const keyCache = JSON.stringify(args);
+  //     console.log(fn.values[keyCache]);
+  //     if (!fn.values[keyCache]) {
+  //         console.log('in cache');
+  //         fn.values[keyCache] = fn(...args);
+  //     }
+
+  //     console.log(fn.values[keyCache]);
+  //     return fn.values[keyCache];
+  // };
+};
+
+var memoizeObj = {
+  memoizeSum: null,
+  memoizeSubtract: null,
+  memoizeMultiply: null,
+  memoizeDivide: null
+};
+memoizeObj.memoizeSum = memoize(add);
+memoizeObj.memoizeSubtract = memoize(subtract);
+memoizeObj.memoizeMultiply = memoize(multiply);
+memoizeObj.memoizeDivide = memoize(divide);
 var task5Button = document.getElementById('task5_button');
 var task5Input = document.getElementById('task5_input');
 var task5Select = document.getElementById('selectAlgorithm');
