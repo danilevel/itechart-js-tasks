@@ -1,0 +1,112 @@
+@mixin display($display, $direction, $justify, $align) {
+    display: $display;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin base() {
+    font-size: 1em;
+    font-weight: light;
+    border: 1px solid;
+    border-color: #d45202;
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+.search {
+    max-height: 700px;
+    padding: 100px;
+    @include display($display: flex, $direction: column,
+        $justify: space-between, $align: center);
+
+    &__container {
+        min-height: 425px;
+        max-width: 370px;
+        @include display($display: flex, $direction: column,
+            $justify: space-between, $align: center);
+        background: #ffffff;
+        border: 2px solid;
+        border-color: #d45202;
+        background-color: #fff9f6;
+        border-radius: 25px;
+
+        &_indent {
+            padding: 10px;
+        }
+    }
+
+    &__input-container {
+        @include display($display: flex, $direction: row,
+            $justify: space-between, $align: center);
+        margin-bottom: 10px;
+    }
+
+    &__input {
+        @include base();
+        height: 40px;
+        width: 200px;
+        color: #5b5b5b;
+
+        &:focus,
+        &:hover {
+            border: 1px solid;
+            border-color: #d45202;
+        }
+
+        &_indent {
+            padding-left: 20px;
+            margin-right: 15px;
+        }
+    }
+
+    &__button {
+        @include base();
+        height: 40px;
+        width: 100px;
+        color: #d45202;
+
+        &:hover {
+            transition: all 0.2s;
+            background-color: #d06846;
+            color: #ffffff;
+        }
+
+        &_indent {
+            padding-bottom: 1px;
+        }
+    }
+
+    &__card {
+        @include display($display: flex, $direction: column,
+            $justify: space-between, $align: left);
+        min-height: 350px;
+        width: 315px;
+        background-color: #ffffff;
+        border: 1px solid;
+        border-color: #d45202;
+        border-radius: 20px;
+        padding: 25px;
+    }
+
+    &__title {
+        font-size: 1.375em;
+        font-weight: bold;
+        color: #3e3e3e;
+        letter-spacing: 1px;
+    }
+
+    &__description {
+        font-size: 1.15em;
+        font-weight: normal;
+        padding-top: 12px;
+        color: #3e3e3e;
+
+        &_size{
+            font-size: 3em;
+            font-weight: bold;
+            color: #c93305;
+            padding-top: 20px;
+        }
+    }
+}

@@ -240,11 +240,11 @@ function isEqual(object1, object2) {
 
     for (let i = 0; i < props1.length; i += 1) {
         const prop = props1[i];
-        const bothAreObjects = typeof(object1[prop]) === 'object' && typeof(object2[prop]) === 'object';
+        const bothAreObjects = typeof (object1[prop]) === 'object' && typeof (object2[prop]) === 'object';
 
         if ((!bothAreObjects && (object1[prop] !== object2[prop]))
-        || (bothAreObjects && !isEqual(object1[prop], object2[prop]))) {
-        return false;
+            || (bothAreObjects && !isEqual(object1[prop], object2[prop]))) {
+            return false;
         }
     }
 
@@ -279,7 +279,7 @@ const memoize = (fn) => {
     // };
 }
 
-let memoizeObj = { memoizeSum: null, memoizeSubtract: null, memoizeMultiply: null, memoizeDivide: null};
+let memoizeObj = { memoizeSum: null, memoizeSubtract: null, memoizeMultiply: null, memoizeDivide: null };
 memoizeObj.memoizeSum = memoize(add);
 memoizeObj.memoizeSubtract = memoize(subtract);
 memoizeObj.memoizeMultiply = memoize(multiply);

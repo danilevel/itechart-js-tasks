@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>WeatherAPI</title>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/style.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div class="search">
+            <div class="search__container search__container_indent">
+                <div class="search__input-container">
+                    <input type="text" class="search__input search__input_indent" placeholder="Enter the city..." required>
+                    <button type="button" class="search__button search__button_indent">search</button>
+                </div>
+
+                <div class="search__card">
+                    <p id="city" class="search__title"></p>
+                    <p id="temp" class="search__description_size"></p>
+                    <div>
+                    <img src="" alt="" id="image">
+                    </div>
+                    <div>
+                        <p id="disc" class="search__description"></p>
+                        <p id="hum" class="search__description"></p>
+                        <p id="speed" class="search__description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="../js/weatherAPI.js"></script>
+    </body>
+</html>
