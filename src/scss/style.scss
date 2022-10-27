@@ -48,6 +48,10 @@
             background-color: #d0d0d0;
             color: #000000;
         }
+
+        &:invalid {
+            color: red;
+          }
     }
 
     &__button{

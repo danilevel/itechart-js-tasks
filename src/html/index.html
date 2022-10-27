@@ -15,7 +15,7 @@
         <h1 class="task-container__title task-container__title_margin">Task_1 (min, max, median)</h1>
         <label>Enter an array (through a space):</label>
         <div class="task-container__margin">
-            <input type="text" id="task1_input" class="task-container__input" required>
+            <input#test type="text" id="task1_input" class="task-container__input" pattern="([0-9]+\s?)*" required>
             <button type="button" id="task1_button" class="task-container__button">calculate</button>
         </div>
         <div>
@@ -38,7 +38,7 @@
         <h1 class="task-container__title task-container__title_margin">Task_2 (growing collection)</h1>
         <label>Enter an array (through a space):</label>
         <div class="task-container__margin">
-            <input type="text" id="task2_input" class="task-container__input" required>
+            <input type="text" id="task2_input" class="task-container__input" pattern="([0-9]+\s?)*" required>
             <button type="button" id="task2_button" class="task-container__button">calculate</button>
         </div>
         <div class="task-container__output">
@@ -85,11 +85,11 @@
     </div>
 
     <div class="task-container">
-        <h1 class="task-container__title task-container__title_margin">Task_4,8 (calculator)</h1>
+        <h1 class="task-container__title task-container__title_margin">Task_4,7 (calculator)</h1>
         <div>
             <label>Enter numbers:</label>
-            <input type="text" id="task4_input-first" class="task-container__input" required>
-            <input type="text" id="task4_input-second" class="task-container__input" required>
+            <input type="number" id="task4_input-first" class="task-container__input" required>
+            <input type="number" id="task4_input-second" class="task-container__input" required>
         </div>
         <div class="task-container__output">
             <select id="selectOperation">
@@ -113,7 +113,7 @@
         <h1 class="task-container__title task-container__title_margin">Task_5 (Sorter)</h1>
         <label>Enter an int array (through a space):</label>
         <div class="task-container__margin">
-            <input type="text" id="task5_input" class="task-container__input" required>
+            <input type="text" id="task5_input" class="task-container__input" pattern="([0-9]+\s?)*" required>
             <button type="button" id="task5_button" class="task-container__button">calculate</button>
         </div>
         <div class="task-container__output">
@@ -128,7 +128,7 @@
         <div class="task-container__margin">
             <output type="text" id="task5_output" readonly>
         </div>
-        
+
     </div>
 
     <div class="task-container">
@@ -149,7 +149,7 @@
         <div class="task-container__margin">
             <output type="text" id="task6_output" readonly>
         </div>
-        
+
     </div>
 
     <div class="task-container">
@@ -158,4 +158,5 @@
     </div>
     <script src="../js/tasks.js"></script>
 </body>
+
 </html>

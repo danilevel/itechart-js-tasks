@@ -8,6 +8,7 @@ task1Button.addEventListener("click", () => {
     document.querySelector("#medianOutput").innerHTML = findMedian(convertToArray(str));
 })
 
+
 function convertToArray(str) {
     return str.split(' ').map(Number);
 }
@@ -389,7 +390,7 @@ objConvert.convertFromBinaryToDec = convertFromBinaryToDec;
 objConvert.convertFromDecimalToBin = convertFromDecimalToBin;
 
 function convertFromBinaryToDec(str) {
-    str.replace(/ /g, '');
+
     return parseInt((str + '').replace(/[^01]/gi, ''), 2);
 }
 

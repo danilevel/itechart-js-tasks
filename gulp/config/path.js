@@ -10,11 +10,13 @@ export const path = {
         html: './dist/',
         images: './dist/images',
         js: './dist/js/',
+        mocha: './dist/mocha/',
     },
     src: {
         scss: './src/scss/*.scss',
         html: './src/html/*.html',
         js: './src/js/*.js',
+        mocha: './test/*.js',
         images: './images/**/*.{jpg,jpeg,png,gif,webp}',
         svg: './images/**/*.svg',
     },
@@ -22,6 +24,7 @@ export const path = {
         scss: './src/scss/**/*.scss',
         html: './src/html/**/*.html',
         js: './src/js/**/*.js',
+        mocha: './test/*.js',
         images: './images/**/*.{jpg,jpeg,png,svg,gif,webp,ico,webp}'
     },
     clean: buildFolder,

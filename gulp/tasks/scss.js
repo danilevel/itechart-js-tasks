@@ -4,7 +4,6 @@ import rename from 'gulp-rename';
 import concatCss from "gulp-concat-css";
 import cleanCSS from "gulp-clean-css";
 
-
 const sass = gulpSaas(dartSass);
 
 export const scss = () => {
