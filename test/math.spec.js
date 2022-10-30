@@ -41,6 +41,24 @@ describe("Task-2", () => {
     })
 })
 
+describe("Task-3", () => {
+    it('conversion with with input text', () => {
+        expect(task3.formatText("some text for example", 2, 2, 0)).to.equal("so");
+    })
+    it('conversion with with input text', () => {
+        expect(task3.formatText("some text for example", 3, 3, 1)).to.equal("som\ntex\nfor");
+    })
+    it('conversion with input text', () => {
+        expect(task3.formatText("some text for example", 3, 3, 1)).to.equal("som\ntex\nfor");
+    })
+    it('conversion with input text', () => {
+        expect(task3.formatText("some", 3, 4, 2)).to.equal("s\no\nm\ne");
+    })
+    it('conversion with input text', () => {
+        expect(task3.formatText("some. text.for. example", 3, 4, 3)).to.equal("some\n text\nfor\n example");
+    })
+})
+
 describe("Task-4", () => {
     it('conversion with correct input', () => {
         expect(task4.add(2, 2.3)).to.equal(4.3);

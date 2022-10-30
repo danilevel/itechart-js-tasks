@@ -93,84 +93,30 @@ task3Button.addEventListener("click", () => {
 })
 
 function formatText(text, maxStringSize, maxStringCount, selectedChoice) {
-
-    let formattedText = '';
-    let currentStringCount = 0;
-    let currentStringSize = 0;
-
-    for (var i = 0; i < text.length; i++) {
-        formattedText += text[i];
-        currentStringSize++;
-        switch (selectedChoice) {
-            case 0:
-                checkStringSize();
-                if (checkStringCount()) {
-                    return formattedText;
-                }
-                break;
-            case 1:
-                if (checkStringSize()) {
-                    moveIndexToEnd(' ');
-                }
-                else if (text[i] == ' ') {
-                    formattedText += '\n';
-                }
-
-                if (checkStringCount()) {
-                    return formattedText;
-                }
-                break;
-            case 2:
-                formattedText += '\n';
-                currentStringCount++;
-                if (checkStringCount()) {
-                    return formattedText;
-                }
-
-                break;
-            case 3:
-                if (checkStringSize()) {
-                    moveIndexToEnd('.');
-                }
-                else if (text[i] == '.') {
-                    formattedText += '\n';
-                }
-                if (checkStringCount()) {
-                    return formattedText;
-                }
-                break;
-        }
+    let wordMass = text.replace(/\s+/g, ' ').trim().split(' ');
+    let result;
+    switch (selectedChoice) {
+        case 0:
+            result = wordMass.join(' ').slice(0, maxStringSize);
+            break;
+        case 1:
+            wordMass.forEach((item, index, mass) => {
+                mass.splice(index, 1, item.substring(0,
+                    maxStringSize > item.length ?
+                        item.length :
+                        maxStringSize));
+            });
+            result = wordMass.slice(0, maxStringCount).join('\n');
+            break;
+        case 2:
+            result = wordMass.join('').substring(0, maxStringCount).split('').join('\n');
+            break;
+        case 3:
+            result = wordMass.join(' ').split('.').join('\n');
+            break;
     }
-
-    function checkStringSize() {
-        if (currentStringSize >= maxStringSize) {
-            formattedText += '\n';
-            currentStringSize = 0;
-            currentStringCount++;
-            return true;
-        }
-        return false;
-    }
-
-    function checkStringCount() {
-        if (currentStringCount >= maxStringCount) {
-            return true;
-        }
-        return false;
-    }
-
-    function moveIndexToEnd(symbol) {
-        for (var j = 0; j < text.length; j++) {
-            if (text[i] == symbol) {
-                break;
-            } else {
-                i++;
-            }
-        }
-    }
-    return formattedText;
+    return result;
 }
-
 
 const task4Button = document.getElementById('task4_button');
 const task4InputNumber1 = document.getElementById('task4_input-first');
@@ -186,7 +132,7 @@ task4Button.addEventListener("click", () => {
     switch (select) {
         case 0:
             const mSum = memoizeObj.memoizeSum;
-            document.querySelector("#task4_operationOutput").innerHTML = mSum(number1, number2);
+            document.querySelector("#task4_operationOutput").innerHTML = mSum(number1,number2);
             break;
         case 1:
             const mSubtract = memoizeObj.memoizeSubtract;
@@ -231,6 +177,22 @@ function divide(firstNum, secNum) {
     return firstNum / secNum;
 }
 
+function memoize(fn) {
+    let prevProps;
+    let prevResult;
+    return (...props) => {
+        if (prevResult && prevProps && isEqual(prevProps, props)) {
+            console.log("From cache");
+            return prevResult;
+        }
+
+        console.log("In cache");
+        prevProps = props;
+        prevResult = fn(...props);
+        return prevResult;
+    };
+}
+
 function isEqual(object1, object2) {
     const props1 = Object.getOwnPropertyNames(object1);
     const props2 = Object.getOwnPropertyNames(object2);
@@ -252,34 +214,6 @@ function isEqual(object1, object2) {
     return true;
 }
 
-const memoize = (fn) => {
-    let prevProps;
-    let prevResult;
-    return (...props) => {
-        if (prevResult && prevProps && isEqual(prevProps, props)) {
-            console.log("From cache");
-            return prevResult;
-        }
-
-        console.log("In cache");
-        prevProps = props;
-        prevResult = fn(...props);
-        return prevResult;
-    };
-
-    // return (...args) => {
-    //     const keyCache = JSON.stringify(args);
-    //     console.log(fn.values[keyCache]);
-    //     if (!fn.values[keyCache]) {
-    //         console.log('in cache');
-    //         fn.values[keyCache] = fn(...args);
-    //     }
-
-    //     console.log(fn.values[keyCache]);
-    //     return fn.values[keyCache];
-    // };
-}
-
 let memoizeObj = { memoizeSum: null, memoizeSubtract: null, memoizeMultiply: null, memoizeDivide: null };
 memoizeObj.memoizeSum = memoize(add);
 memoizeObj.memoizeSubtract = memoize(subtract);
@@ -291,17 +225,17 @@ const task5Input = document.getElementById('task5_input');
 const task5Select = document.getElementById('selectAlgorithm');
 
 task5Button.addEventListener("click", () => {
-    var str = task5Input.value;
+    let str = task5Input.value;
     let select = task5Select.selectedIndex;
     const array = convertToArray(str);
-    console.log(array);
+    let objSort = new Sorter();
 
     switch (select) {
         case 0:
             document.querySelector("#task5_output").innerHTML = `[${objSort.bubbleSort(array).join(", ")}]`;
             break;
         case 1:
-            document.querySelector("#task5_output").innerHTML = `[${objSort.quickSort(array).join(", ")}]`;
+            document.querySelector("#task5_output").innerHTML = `[${objSort.selectionSort(array).join(", ")}]`;
             break;
         case 2:
             document.querySelector("#task5_output").innerHTML = `[${objSort.insertionSort(array).join(", ")}]`;
@@ -309,62 +243,55 @@ task5Button.addEventListener("click", () => {
     }
 })
 
-let objSort = { bubbleSort, quickSort, insertionSort };
-
-objSort.bubbleSort = bubbleSort;
-objSort.quickSort = quickSort;
-objSort.insertionSort = insertionSort;
-
-function bubbleSort(array) {
-    if (array.length <= 1) {
-        return array;
-    }
-    for (let j = array.length - 1; j > 0; j--) {
-        for (let i = 0; i < j; i++) {
-            if (array[i] > array[i + 1]) {
-                let temp = array[i];
-                array[i] = array[i + 1];
-                array[i + 1] = temp;
+class Sorter {
+    bubbleSort(array) {
+        if (array.length <= 1) {
+            return array;
+        }
+        for (let j = array.length - 1; j > 0; j--) {
+            for (let i = 0; i < j; i++) {
+                if (array[i] > array[i + 1]) {
+                    let temp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
+                }
             }
         }
-    }
 
-    return array;
-}
-
-function quickSort(array) {
-    if (array.length <= 1) {
         return array;
     }
-    var pivot = array[0];
 
-    var left = [];
-    var right = [];
-
-    for (var i = 1; i < array.length; i++) {
-        array[i] < pivot ? left.push(array[i]) : right.push(array[i]);
-    }
-
-    return quickSort(left).concat(pivot, quickSort(right));
-};
-
-
-function insertionSort(array) {
-    if (array.length <= 1) {
-        return array;
-    }
-    for (let i = 1, l = array.length; i < l; i++) {
-        const current = array[i];
-        let j = i;
-        while (j > 0 && array[j - 1] > current) {
-            array[j] = array[j - 1];
-            j--;
+    selectionSort(array) {
+        for (var i = 0; i < array.length - 1; i++) {
+            var min = i;
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[j] < array[min]) {
+                    min = j;
+                }
+            }
+            var t = array[min];
+            array[min] = array[i];
+            array[i] = t;
         }
-        array[j] = current;
+        return array;
     }
-    return array;
-}
 
+    insertionSort(array) {
+        if (array.length <= 1) {
+            return array;
+        }
+        for (let i = 1, l = array.length; i < l; i++) {
+            const current = array[i];
+            let j = i;
+            while (j > 0 && array[j - 1] > current) {
+                array[j] = array[j - 1];
+                j--;
+            }
+            array[j] = current;
+        }
+        return array;
+    }
+}
 
 const task6Button = document.getElementById('task6_button');
 const task6Input = document.getElementById('task6_input');

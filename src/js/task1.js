@@ -1,4 +1,3 @@
-
 export const funcs = {
     convertToArray,
     findMax,
