@@ -133,7 +133,7 @@ task4Button.addEventListener("click", () => {
     switch (select) {
         case 0:
             const mSum = memoizeObj.memoizeSum;
-            document.querySelector("#task4_operationOutput").innerHTML = mSum(number1,number2);
+            document.querySelector("#task4_operationOutput").innerHTML = mSum(number1, number2);
             break;
         case 1:
             const mSubtract = memoizeObj.memoizeSubtract;
@@ -337,3 +337,23 @@ function convertFromDecimalToBin(number) {
 
     return binary.split('').reverse().join('');
 }
+
+
+function sum(a, b, c) {
+    return a + b + c;
+}
+
+const curry = (fn) => {
+    const curried = (...args) => {
+        if (args.length >= fn.length) {
+            return fn(...args);
+        } else {
+            return (...restArgs) => curried(...args, ...restArgs);
+        }
+    }
+
+    return curried;
+}
+
+const temp = curry(sum);
+console.log(temp(1,2)(3));

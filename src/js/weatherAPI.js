@@ -26,7 +26,6 @@ async function getWeather(geo) {
         lon: geo[0].lon,
         appid: '456dfb2fe6e3562662d80f493f8d32a4'
     })
-
     const weatherData = await fetch(baseURL + weatherPath + weatherParams.toString(), { method: 'GET' })
         .then(data => data.json())
         .catch(() => alert('Failed to get the weather!'));
