@@ -77,15 +77,16 @@ describe("Task-4", () => {
     })
 })
 
+let objSort = new task5.Sorter();
 describe("Task-5", () => {
     it('conversion with correct input', () => {
-        expect(task5.bubbleSort([1, 45, 2, 72, 31, 2])).to.eql([1, 2, 2, 31, 45, 72]);
+        expect(objSort.bubbleSort([1, 45, 2, 72, 31, 2])).to.eql([1, 2, 2, 31, 45, 72]);
     })
     it('conversion with correct input', () => {
-        expect(task5.insertionSort([1, 45, 2, 72, 31, 2])).to.eql([1, 2, 2, 31, 45, 72]);
+        expect(objSort.insertionSort([1, 45, 2, 72, 31, 2])).to.eql([1, 2, 2, 31, 45, 72]);
     })
     it('conversion with correct input', () => {
-        expect(task5.quickSort([1, 45, 2, 72, 31, 2])).to.eql([1, 2, 2, 31, 45, 72]);
+        expect(objSort.selectionSort([1, 45, 2, 72, 31, 2])).to.eql([1, 2, 2, 31, 45, 72]);
     })
 })
 

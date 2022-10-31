@@ -1,7 +1,3 @@
-export const funcs = {
-    Sorter
-}
-
 class Sorter {
     bubbleSort(array) {
         if (array.length <= 1) {
@@ -50,4 +46,8 @@ class Sorter {
         }
         return array;
     }
+}
+
+export const funcs = {
+    Sorter
 }

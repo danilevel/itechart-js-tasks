@@ -5,7 +5,9 @@
   "main": "gulpfile.js",
   "type": "module",
   "scripts": {
-    "test": "mocha"
+    "tests": "mocha",
+    "start": "gulp",
+    "install-dependencies": "npm install"
   },
   "repository": {
     "type": "git",
@@ -43,6 +45,7 @@
     "gulp-sass": "^5.1.0",
     "gulp-version-number": "^0.1.6",
     "gulp-webp": "^4.0.1",
+    "prettier": "^2.7.1",
     "sass": "^1.55.0"
   }
 }

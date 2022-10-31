@@ -1,24 +1,46 @@
 var button = document.querySelector('.search__button');
 var input = document.querySelector('.search__input');
 
-async function getWeather(city) {
-    const geoData = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=456dfb2fe6e3562662d80f493f8d32a4`)
-        .then(data => data.json())
-        .catch(err => alert("Wrong city name!"));
+const baseURL = 'https://api.openweathermap.org';
+const baseImgURl = 'https://openweathermap.org';
+const weatherPath = '/data/2.5/weather?';
+const geoPath = '/geo/1.0/direct?';
+const imgPath = '/img/wn/';
+const imgRes = '@2x.png';
 
-    const weatherData = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${geoData[0].lat}&lon=${geoData[0].lon}&appid=456dfb2fe6e3562662d80f493f8d32a4`)
+async function getGeo(city) {
+    const geoParams = new URLSearchParams({
+        q: city,
+        limit: '1',
+        appid: '456dfb2fe6e3562662d80f493f8d32a4'
+    })
+    const geoData = await fetch(baseURL + geoPath + geoParams.toString(), { method: 'GET' })
         .then(data => data.json())
-        .catch(err => alert("Wrong city name!"));
+        .catch(() => alert('Wrong city name!'));
+    return geoData;
+}
+
+async function getWeather(geo) {
+    const weatherParams = new URLSearchParams({
+        lat: geo[0].lat,
+        lon: geo[0].lon,
+        appid: '456dfb2fe6e3562662d80f493f8d32a4'
+    })
+
+    const weatherData = await fetch(baseURL + weatherPath + weatherParams.toString(), { method: 'GET' })
+        .then(data => data.json())
+        .catch(() => alert('Failed to get the weather!'));
     return weatherData;
 }
 
 button.addEventListener("click", async () => {
-    const weatherData = await getWeather(input.value);
-    document.getElementById('city').innerHTML = "Weather in " + weatherData.name;
-    document.getElementById('temp').innerHTML = Math.round(weatherData.main.temp - 273) + '&deg;';
-    document.getElementById('disc').innerHTML = weatherData.weather[0]['description'];
-    document.getElementById('image').src = `https://openweathermap.org/img/wn/${weatherData.weather[0]['icon']}@2x.png`;
-    document.getElementById('disc').innerHTML = weatherData.weather[0]['description'];
-    document.getElementById('hum').innerHTML = "Humidity: " + weatherData.main.humidity + "&#37;";
-    document.getElementById('speed').innerHTML = "Wind speeed: " + weatherData.wind.speed + " km/h";
+    const geo = await getGeo(input.value);
+    const weather = await getWeather(geo);
+    document.getElementById('city').innerHTML = "Weather in " + weather.name;
+    document.getElementById('temp').innerHTML = Math.round(weather.main.temp - 273) + '&deg;';
+    document.getElementById('disc').innerHTML = weather.weather[0]['description'];
+    document.getElementById('image').src = baseImgURl + imgPath + weather.weather[0]['icon'] + imgRes;
+    document.getElementById('disc').innerHTML = weather.weather[0]['description'];
+    document.getElementById('hum').innerHTML = "Humidity: " + weather.main.humidity + "&#37;";
+    document.getElementById('speed').innerHTML = "Wind speeed: " + weather.wind.speed + " km/h";
 })
