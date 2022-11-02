@@ -1,10 +1,14 @@
 
-// let compose = function(...args){
-//     return function(...args)=>{
+function partialApplication(func, ...args) {
+    for (let number of args) {
+        if (!Number.isInteger(number)) {
+            throw new Error('One of the arguments is not a number!');
+        }
+    }
+    return (...fArgs) => {func(...fArgs, ...args);}
+}
 
-//     }
-// }
-
+console.log(partialApplication(sum(1,2),1,2,3));
 
 
 // task-2

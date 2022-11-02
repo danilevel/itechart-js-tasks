@@ -338,33 +338,22 @@ function convertFromDecimalToBin(number) {
     return binary.split('').reverse().join('');
 }
 
+function sum(a, b, c) {
+    return a + b + c;
+}
 
-
-// let F = (arr, function(func, result){
-//     var i = 0;
-//     if (arguments.length < 2) {
-//         i = 1;
-//         result = arr[0];
-//     }
-//     for (; i < arr.length; i++) {
-//         result = func(result, arr[i], i, arr);
-//     }
-//     return result;
-// })
-//console.log(F(array));
-
-
-Array.prototype.F = function (func, result) {
-    var i = 0;
-    if (arguments.length < 2) {
-        i = 1;
-        result = this[0];
+function partialApplication(func, ...args) {
+    for (let number of args) {
+        if (!Number.isInteger(number)) {
+            throw new Error('One of the arguments is not a number');
+        }
     }
-    for (; i < this.length; i++) {
-        result = func(result, this[i], i, this);
+    return (...fArgs) => {
+        console.log("fdsf");
+        return func(...fArgs, ...args);
     }
-    return result;
-};
+}
 
+console.log(partialApplication(sum(1,23,3), 2, 3));
 
-console.log(array.F(sum));
+console.log(partialApplication(sum));
